@@ -1,5 +1,7 @@
 package be.abis.exercise.model;
 
+import static java.lang.Integer.*;
+
 public class Address {
 	
 	private String street;
@@ -65,10 +67,19 @@ public class Address {
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
 	}
-	
-	
-	
-	
-	
+
+	public boolean checkBelgianZipCode(){
+		try {
+			Integer zip = Integer.parseInt(zipCode);
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
+	}
+
+
+
+
+
 
 }
