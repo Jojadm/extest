@@ -1,5 +1,7 @@
 package be.abis.exercise.model;
 
+import be.abis.exercise.exceptions.PersonShouldBeAdultException;
+
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -65,26 +67,26 @@ public class Person {
 
 	@Override
 	public String toString() {
-		String text = "Person " + this.personNumber + ": " + this.firstName + " " +this.lastName + " (" +this.calculateAge()+ " years old)";
-		if (this.company != null) {
-			text+= " works for " + this.company.getName() + " in " + this.company.getAddress().getTown() + ".";
-		} else {
-			text+= " is not employed for the moment.";
+		String text=null;
+		try {
+			text = "Person " + this.personNumber + ": " + this.firstName + " " + this.lastName + " (" + this.calculateAge() + " years old)";
+			if (this.company != null) {
+				text += " works for " + this.company.getName() + " in " + this.company.getAddress().getTown() + ".";
+			} else {
+				text += " is not employed for the moment.";
+			}
+		} catch (PersonShouldBeAdultException e) {
+			System.out.println ("severe error");
 		}
 		return text;
 	}
-	
-	
-	public int calculateAge() {
-		return Period.between(birthDay, LocalDate.now()).getYears();
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 
+	public int calculateAge() throws PersonShouldBeAdultException {
+		int age = Period.between(birthDay, LocalDate.now()).getYears();
+		if (age >= 18) {
+			return age;
+		} else {
+			throw new PersonShouldBeAdultException();
+		}
+	}
 }

@@ -1,5 +1,6 @@
 package be.abis.exercise.ut;
 
+import be.abis.exercise.exceptions.PersonShouldBeAdultException;
 import be.abis.exercise.model.Person;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -23,7 +24,7 @@ public class TestPerson {
     }
 
     @Test
-    public void personShouldBe42() {
+    public void personShouldBe42() throws PersonShouldBeAdultException{
         //arrange
         //act
         int result= personUnderTest.calculateAge();
@@ -32,9 +33,8 @@ public class TestPerson {
 
     }
     @Test
-    public void personShouldBe42withHamcrest() {
+    public void personShouldBe42withHamcrest() throws PersonShouldBeAdultException {
         //arrange
-        Person personUnderTest = new Person(1, "Sonja", "De Meersman", LocalDate.of(1977, 12, 21));
         //act
         int result= personUnderTest.calculateAge();
         //assert
@@ -45,11 +45,21 @@ public class TestPerson {
     @Test
     public void toStringSentenceStartsWithPerson() {
         //arrange
-        Person personUnderTest = new Person(1, "Sonja", "De Meersman", LocalDate.of(1977, 12, 21));
         //act
         String result = personUnderTest.toString();
         //assert
         assertThat(result, startsWith("Person"));
+
+    }
+
+    @Test(expected = PersonShouldBeAdultException.class)
+    public void personLessThen18Exception() throws PersonShouldBeAdultException {
+        //arrange
+        personUnderTest = new Person(1, "Sonja", "De Meersman", LocalDate.of(2004, 12, 21));
+        //act
+        int result = personUnderTest.calculateAge();
+        //assert
+        assertEquals(16,result);
 
     }
 }
