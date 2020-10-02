@@ -93,15 +93,11 @@ public class Address {
 		return text;
 	}
 
-	public void writeAddress() {
-		try(
-			BufferedWriter bw = Files.newBufferedWriter(Paths.get("addressinfo.txt"), StandardOpenOption.APPEND, StandardOpenOption.CREATE)
-			)
-		{	bw.write(this.toString() + "\n");
+	public void writeAddress() throws IOException {
+			BufferedWriter bw = Files.newBufferedWriter(Paths.get("addressinfo.txt"), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
+			bw.write(this.toString() + "\n");
+			bw.close();
 			System.out.println("address written to file : " +this.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }
