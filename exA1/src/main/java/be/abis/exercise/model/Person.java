@@ -86,7 +86,7 @@ public class Person {
 		if (age >= 18) {
 			return age;
 		} else {
-			throw new PersonShouldBeAdultException();
+			throw new PersonShouldBeAdultException("Person should be adult");
+			}
 		}
 	}
-}

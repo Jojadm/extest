@@ -1,5 +1,16 @@
 package be.abis.exercise.model;
 
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 import static java.lang.Integer.*;
 
 public class Address {
@@ -77,9 +88,20 @@ public class Address {
 		return true;
 	}
 
+	public String toString() {
+		String text = "Address: " +street + " " +nr + ", " +zipCode + " " +town + " " +country ;
+		return text;
+	}
 
-
-
-
+	public void writeAddress() {
+		try(
+			BufferedWriter bw = Files.newBufferedWriter(Paths.get("addressinfo.txt"), StandardOpenOption.APPEND, StandardOpenOption.CREATE)
+			)
+		{	bw.write(this.toString() + "\n");
+			System.out.println("address written to file : " +this.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

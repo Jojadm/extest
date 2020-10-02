@@ -20,7 +20,6 @@ public class TestPerson {
     @Before
     public void setUp() {
         personUnderTest = new Person(1, "Sonja", "De Meersman", LocalDate.of(1977, 12, 21));
-        System.out.println(personUnderTest);
     }
 
     @Test
@@ -55,11 +54,11 @@ public class TestPerson {
     @Test(expected = PersonShouldBeAdultException.class)
     public void personLessThen18Exception() throws PersonShouldBeAdultException {
         //arrange
-        personUnderTest = new Person(1, "Sonja", "De Meersman", LocalDate.of(2004, 12, 21));
+        personUnderTest.setBirthDay(LocalDate.of(2004, 12, 21));
         //act
         int result = personUnderTest.calculateAge();
-        //assert
-        assertEquals(16,result);
+        //assert - mag weg bij testen van exception
+        //assertEquals(16,result);
 
     }
 }

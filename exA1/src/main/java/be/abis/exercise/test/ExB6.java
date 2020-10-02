@@ -14,7 +14,7 @@ public class ExB6 {
 
 	public static void main(String[] args) {
 
-       Address a = new Address("Diestsevest","32 bus 4B","3000","Leuven","Belgi�","BE");
+       Address a = new Address("Diestsevest","32 bus 4B","3000","Leuven","België","BE");
        Company c = new Company("ABIS",a);
        
        Person p1 = new Person(1,"Ann","Smits",LocalDate.of(1985, 6, 28),c);
@@ -22,12 +22,18 @@ public class ExB6 {
        
        try ( BufferedWriter bw = Files.newBufferedWriter(Paths.get("personinfo.txt"));){
     	   bw.write(p1.toString() + "\n");
-    	   bw.write(p2.toString() + "\n"); 
+    	   bw.write(p2.toString() + "\n");
+		   bw.close();
     	   System.out.println("persons written to file");
        } catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+
+
+       	a.writeAddress();
+		Address a2 = new Address("Mutsereelstraat","27","9310","Aalst","België","BE");
+		a2.writeAddress();
        
        
 
