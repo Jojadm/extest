@@ -1,18 +1,15 @@
-package be.abis.exercise.ut;
+package be.abis.exercise.ut2;
 
-import be.abis.exercise.exceptions.PersonShouldBeAdultException;
 import be.abis.exercise.model.Address;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
@@ -24,13 +21,10 @@ public class TestAddress {
     private static Address addressUnderTest;
     private static File file;
 
-    @BeforeClass
-    public static void setUp() {
-        addressUnderTest = new Address("Mutsereelstraat","27", "9310", "Aalst", "België", "BE");
-    }
-
-    @Before
+    @BeforeEach
     public void beforeEachTest() {
+        System.out.println("BeforeEach");
+        addressUnderTest = new Address("Mutsereelstraat","27", "9310", "Aalst", "België", "BE");
         file = new File("addressinfo.txt");
         file.setWritable(true);
     }
@@ -43,15 +37,14 @@ public class TestAddress {
         assertTrue(addressUnderTest.checkBelgianZipCode());
     }
 
-    @Test(expected = IOException.class)
-    public void addressFileIOExceptionReadOnly() throws IOException {
+    @Test
+    public void addressFileIOExceptionReadOnly()  {
+
         //arrange
-
-        file.setReadOnly();
-        //act
-        addressUnderTest.writeAddress();
-        //Assert
-
+        //act & Assert
+        Assertions.assertThrows(IOException.class, () -> {
+            addressUnderTest.writeAddress();
+        });
     }
 
     @Test
@@ -79,7 +72,7 @@ public class TestAddress {
         System.out.println("nbrlines : " +nbrLines);
         return nbrLines;
     }
-    @Ignore
+    @Disabled
     public void noIdeaYetWhatWeAreGoingToTest() {
         //arrange
         //act
