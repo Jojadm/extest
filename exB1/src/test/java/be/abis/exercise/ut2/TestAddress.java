@@ -12,9 +12,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestAddress {
 
@@ -23,7 +22,6 @@ public class TestAddress {
 
     @BeforeEach
     public void beforeEachTest() {
-        System.out.println("BeforeEach");
         addressUnderTest = new Address("Mutsereelstraat","27", "9310", "Aalst", "België", "BE");
         file = new File("addressinfo.txt");
         file.setWritable(true);
@@ -39,8 +37,8 @@ public class TestAddress {
 
     @Test
     public void addressFileIOExceptionReadOnly()  {
-
         //arrange
+        file.setReadOnly();
         //act & Assert
         Assertions.assertThrows(IOException.class, () -> {
             addressUnderTest.writeAddress();
